@@ -6,6 +6,9 @@ Business Process Model and Notation (BPMN) for business processes diagrams.
 
 Source: https://www.omg.org/spec/BPMN/2.0.2/
 
+![substitutionGroup="di:DiagramElement"](https://github.com/THM-MA/xsdata-substGrp/blob/main/images/substitutionGroup.png)
+
+
 # Models generated using XSDATA
     xsdata .\schemas\BPMN20.xsd --package .\models --structure-style clusters --relative-imports 
 
