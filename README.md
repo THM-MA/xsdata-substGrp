@@ -1,6 +1,46 @@
 # xsdata-substGrp
 Testcase for XSDATA "Unknown property" parser error on XSD substitutionGroup.
 
+# Error description
+
+The XS schema contains a substitutionGroup Element named "di:DiagramElement" that is not detected during model generation. The substitutionGroup allows either an BPMNShape or a BPMNEdge element to be assigned to assigned BPMNPlane. 
+
+BPMNDiagram -> BPMNPlane |-> BPMNShape
+                         |-> BPMNEdge
+
+However the assigment can ot be found in the model class of BPMNPlane
+
+    __NAMESPACE__ = "http://www.omg.org/spec/BPMN/20100524/DI"
+
+
+    @dataclass
+    class Bpmnplane(Plane):
+        class Meta:
+            name = "BPMNPlane"
+            namespace = "http://www.omg.org/spec/BPMN/20100524/DI"
+
+        bpmn_element: Optional[QName] = field(
+            default=None,
+            metadata={
+                "name": "bpmnElement",
+                "type": "Attribute",
+            }
+        )
+
+When parsing a valid BPMN XML file using the generated models an "Unknown property" occurs.
+
+A working example with full details (schema, generated model, parser code,name of substitutionGroup) can be found on GitHub:
+
+https://github.com/THM-MA/xsdata-substGrp
+
+The documentation 21.8 (2021-08-03) mentions „Updated fields derived from xs:substitutionGroups to optional”. May this be the problem?
+
+Any help is highly appreciated.
+
+Thanks
+Thomas
+
+
 # Schemas
 Business Process Model and Notation (BPMN) for business processes diagrams.
 
