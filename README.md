@@ -1,15 +1,26 @@
 # xsdata-substGrp
-Testcase for XSDATA generation error on XSD substitutionGroup
+Testcase for XSDATA "Unknown property" parser error on XSD substitutionGroup.
 
 # Schemas
 Business Process Model and Notation (BPMN) for business processes diagrams.
 
 Source: https://www.omg.org/spec/BPMN/2.0.2/
 
-# Models generated
+# Models generated using XSDATA
     xsdata .\schemas\BPMN20.xsd --package .\models --structure-style clusters --relative-imports 
 
-# Exapmle XML file
+# Exapmle Python XML parser file
+    from pathlib import Path
+    from xsdata.formats.dataclass.parsers import XmlParser
+    from xsdata.formats.dataclass.parsers.handlers import XmlEventHandler
+
+    # Models
+    from models.definitions import Definitions
+
+    filename = Path("example.xml").absolute()
+    parser = XmlParser(handler=XmlEventHandler)
+    definitions = parser.parse(str(filename), Definitions) # Unknown property BPMNShape
+
 
 # Exapmle XML file
     <?xml version="1.0" encoding="UTF-8"?>
